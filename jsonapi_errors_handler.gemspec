@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A JSON API error handler for ruby applications.}
   spec.description   = %q{This gem is a convienient wrapper for your application errors. It allows you to map any error to a nicely formatted standard HTTP error response. }
-  spec.homepage      = "https://github.com/driggl/jsonapi_error_handler"
+  spec.homepage      = "https://github.com/driggl/jsonapi_errors_handler"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
     # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/driggl/jsonapi_error_handler"
+    spec.metadata["source_code_uri"] = "https://github.com/driggl/jsonapi_errors_handler"
     # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
