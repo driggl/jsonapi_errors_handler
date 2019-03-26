@@ -1,8 +1,6 @@
 # JsonapiErrorsHandler
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jsonapi_errors_handler`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A convienient way to serialize errors in JsonAPI format (https://jsonapi.org)
 
 ## Installation
 
@@ -22,7 +20,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In your controller:
+
+```
+include JsonapiErrorsHandler
+```
+
+From this point you'll have default html errors being serialized. JsonapiErrorsHandler offers 4 predefined errors:
+- JsonapiErrorsHandler::Errors::Invalid
+- JsonapiErrorsHandler::Errors::Forbidden
+- JsonapiErrorsHandler::Errors::NotFound
+- JsonapiErrorsHandler::Errors::Unauthorized
+
+If you rise any of errors above in any place of your application, client gets the nicely formatted error message instead of 500
+
+### Custom errors mapping
+
+If you want your custom errors being handled by default, just add them to th emapper
+
+```
+ErrorsMapper.map_errors!({
+    'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
+    'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
+})
+```
 
 ## Development
 
@@ -32,7 +53,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/jsonapi_errors_handler.
+Bug reports and pull requests are welcome on GitHub at https://github.com/driggl/jsonapi_errors_handler.
 
 ## License
 
