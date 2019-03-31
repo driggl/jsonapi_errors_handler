@@ -24,6 +24,7 @@ In your controller:
 
 ```
 include JsonapiErrorsHandler
+rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
 
 From this point you'll have default html errors being serialized. JsonapiErrorsHandler offers 4 predefined errors:
@@ -36,13 +37,15 @@ If you rise any of errors above in any place of your application, client gets th
 
 ### Custom errors mapping
 
-If you want your custom errors being handled by default, just add them to th emapper
+If you want your custom errors being handled by default, just add them to the mapper
 
 ```
+include JsonapiErrorsHandler
 ErrorsMapper.map_errors!({
     'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
     'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
 })
+rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
 
 ## Development
