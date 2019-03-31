@@ -58,6 +58,15 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/driggl/jsonapi_errors_handler.
 
+**How to contribute:**
+
+1. Fork repository
+2. Commit changes
+    - Keep commits small and atomic
+    - Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
+    - Keep commits imperative style
+3. Create Pull Request
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
