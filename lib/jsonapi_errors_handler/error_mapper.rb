@@ -1,6 +1,8 @@
 module JsonapiErrorsHandler
   class ErrorMapper
-    cattr_accessor :mapped_errors
+    def self.mapped_errors
+      @@mapped_errors
+    end
 
     def self.map_errors!(errors_hash={})
       @@mapped_errors ||= {}
