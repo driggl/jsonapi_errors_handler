@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
+require "rspec"
 require "jsonapi_errors_handler"
 
 # You can add fixtures and/or initialization code here to make experimenting
