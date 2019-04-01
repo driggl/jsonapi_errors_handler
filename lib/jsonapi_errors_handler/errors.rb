@@ -4,8 +4,8 @@ module JsonapiErrorsHandler
   end
 end
 
-require_dependency 'jsonapi_errors_handler/errors/standard_error'
-require_dependency 'jsonapi_errors_handler/errors/forbidden'
-require_dependency 'jsonapi_errors_handler/errors/invalid'
-require_dependency 'jsonapi_errors_handler/errors/not_found'
-require_dependency 'jsonapi_errors_handler/errors/unauthorized'
+require 'jsonapi_errors_handler/errors/standard_error'
+require 'jsonapi_errors_handler/errors/forbidden'
+require 'jsonapi_errors_handler/errors/invalid'
+require 'jsonapi_errors_handler/errors/not_found'
+require 'jsonapi_errors_handler/errors/unauthorized'
