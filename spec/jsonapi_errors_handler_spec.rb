@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe JsonapiErrorsHandler do
   it "has a version number" do
     expect(JsonapiErrorsHandler::VERSION).not_to be nil
