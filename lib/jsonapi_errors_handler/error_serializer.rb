@@ -1,3 +1,5 @@
+require 'json'
+
 module JsonapiErrorsHandler
   class ErrorSerializer
     def initialize(error)
@@ -8,7 +10,7 @@ module JsonapiErrorsHandler
       serializable_hash
     end
 
-    def to_json(payload)
+    def to_json
       to_h.to_json
     end
 
