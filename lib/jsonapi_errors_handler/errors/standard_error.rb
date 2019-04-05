@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require_relative '../../keys_stringifier'
 
 module JsonapiErrorsHandler
   module Errors
@@ -7,7 +8,7 @@ module JsonapiErrorsHandler
         @title = title || "Something went wrong"
         @detail = detail || "We encountered unexpected error, but our developers had been already notified about it"
         @status = status || 500
-        @source = KeysStringifier.(source)
+        @source = ::KeysStringifier.(source)
       end
 
       def to_h
@@ -28,15 +29,6 @@ module JsonapiErrorsHandler
       end
 
       attr_reader :title, :detail, :status, :source
-    end
-  end
-end
-
-class KeysStringifier
-  def self.call(hash)
-    hash.reduce({}) do |h, (k,v)|
-      new_val = v.is_a?(Hash) ? self.call(v) : v
-      h.merge({k.to_s => new_val})
     end
   end
 end
