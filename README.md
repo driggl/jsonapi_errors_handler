@@ -1,4 +1,4 @@
-
+[![Gem Version](https://badge.fury.io/rb/jsonapi_errors_handler.svg)](https://badge.fury.io/rb/jsonapi_errors_handler)
 [![CircleCI](https://circleci.com/gh/driggl/jsonapi_errors_handler/tree/master.svg?style=svg)](https://circleci.com/gh/driggl/jsonapi_errors_handler/tree/master)
 
 # JsonapiErrorsHandler
