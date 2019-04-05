@@ -1,3 +1,6 @@
+
+[![CircleCI](https://circleci.com/gh/driggl/jsonapi_errors_handler/tree/master.svg?style=svg)](https://circleci.com/gh/driggl/jsonapi_errors_handler/tree/master)
+
 # JsonapiErrorsHandler
 
 A convienient way to serialize errors in JsonAPI format (https://jsonapi.org)

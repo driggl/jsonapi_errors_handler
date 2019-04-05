@@ -10,7 +10,7 @@ module JsonapiErrorsHandler
       serializable_hash
     end
 
-    def to_json
+    def to_json(_payload=nil)
       to_h.to_json
     end
 
