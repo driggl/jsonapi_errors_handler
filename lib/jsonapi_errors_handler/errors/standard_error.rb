@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative '../../keys_stringifier'
+require 'jsonapi_errors_handler/keys_stringifier'
 
 module JsonapiErrorsHandler
   module Errors
@@ -8,7 +8,7 @@ module JsonapiErrorsHandler
         @title = title || "Something went wrong"
         @detail = detail || "We encountered unexpected error, but our developers had been already notified about it"
         @status = status || 500
-        @source = ::KeysStringifier.(source)
+        @source = KeysStringifier.(source)
       end
 
       def to_h
