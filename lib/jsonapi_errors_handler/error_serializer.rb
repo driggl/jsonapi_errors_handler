@@ -1,3 +1,5 @@
+require 'json'
+
 module JsonapiErrorsHandler
   class ErrorSerializer
     def initialize(error)
@@ -16,7 +18,7 @@ module JsonapiErrorsHandler
 
     def serializable_hash
       {
-        errors: Array.wrap(error.serializable_hash)
+        errors: [error.serializable_hash]
       }
     end
 
