@@ -16,21 +16,14 @@ module JsonapiErrorsHandler
 
       def handle_error(e)
         mapped = map_error(e)
-        unless Rails.env.development?
-          # notify about unexpected_error unless mapped
-          mapped ||= ::JsonapiErrorsHandler::Errors::StandardError.new
-        end
-        if mapped
-          render_error(mapped)
-        else
-          raise e
-        end
+        mapped ||= ::JsonapiErrorsHandler::Errors::StandardError.new
+        render_error(mapped)
       end
 
       def map_error(e)
         error_klass = e.class.name
-        return e if ErrorMapper.mapped_error?(error_klass)
-        ErrorMapper.mapped_errors[error_klass]&.constantize&.new
+        return nil if !ErrorMapper.mapped_error?(error_klass)
+        Object.const_get(ErrorMapper.mapped_errors[error_klass]).new
       end
 
       def render_error(error)
