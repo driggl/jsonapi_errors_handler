@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 RSpec.describe JsonapiErrorsHandler::ErrorMapper do
+  let(:mapped_errors) { described_class.mapped_errors }
+
+  describe '.mapped_errors' do
+    it 'returns a Hash' do
+      expect(mapped_errors).to be_instance_of(Hash)
+    end
+
+    it 'returns current value of class variable @mapped_errors' do
+      expect(mapped_errors).to eq described_class.class_variable_get(:@@mapped_errors)
+    end
+  end
+
   describe '.map_errors!' do
     let(:errors_hash) { {'Error' => 'Invalid'} }
 
