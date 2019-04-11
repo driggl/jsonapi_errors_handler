@@ -1,15 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe JsonapiErrorsHandler::ErrorMapper do
-  describe '.mapped_errors' do
-    it 'returns all the current mapped errors' do
-      expect(described_class.mapped_errors).to eq({})
-    end
-  end
-
   describe '.map_errors!' do
     let(:errors_hash) { {'Error' => 'Invalid'} }
-    
+
     it 'merges errors_hash into the current errors' do
       result = described_class.map_errors!(errors_hash)
       expect(result['Error']).to eq 'Invalid'
