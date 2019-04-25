@@ -16,6 +16,7 @@ module JsonapiErrorsHandler
 
       def handle_error(e)
         mapped = map_error(e)
+        log_error(e) if respond_to?(:log_error) && !mapped
         mapped ||= ::JsonapiErrorsHandler::Errors::StandardError.new
         render_error(mapped)
       end

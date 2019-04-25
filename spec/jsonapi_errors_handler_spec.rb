@@ -2,25 +2,36 @@ require 'spec_helper'
 
 class TestJsonapiErrorsHandler
   include JsonapiErrorsHandler
-  
+
   def render(json: {}, status:)
     json.to_h.merge(status: status)
   end
 end
 
-RSpec.describe JsonapiErrorsHandler do 
+class DummyErrorLogger
+  include JsonapiErrorsHandler
+
+  def render(json: {}, status:)
+    json.to_h.merge(status: status)
+  end
+
+  def log_error(e)
+  end
+end
+
+RSpec.describe JsonapiErrorsHandler do
   let(:dummy) { TestJsonapiErrorsHandler.new }
-  
+
   it 'expects ErrorMapper to have already mapped some errors' do
     dummy
     expect(JsonapiErrorsHandler::ErrorMapper.mapped_errors).not_to be_empty
   end
 
   describe '.handle_error' do
+    let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new }
     let(:subject) { dummy.handle_error(mapped_error) }
 
     context 'when error is mapped' do
-      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new }
       let(:expected_result) do
         { errors: [{detail: 'You have no rights to access this resource',
                     source: {'pointer'=>'/request/headers/authorization'},
@@ -32,10 +43,20 @@ RSpec.describe JsonapiErrorsHandler do
       it 'renders mapped error' do
         expect(subject).to include(expected_result)
       end
+
+      context 'when responds to log_error method' do
+        let(:dummy) { DummyErrorLogger.new }
+        let(:subject) { dummy.handle_error(mapped_error) }
+        it 'does not call error that is mapped' do
+          expect(dummy).not_to receive(:log_error)
+          subject
+        end
+      end
     end
 
     context 'when error is not mapped' do
-      let(:mapped_error) { 'Error' }
+      let(:unmapped_error) { 'Error' }
+      let(:subject) { dummy.handle_error(unmapped_error) }
       let(:expected_result) do
         { errors: [{detail: 'We encountered unexpected error, but our developers had been already notified about it',
                     source: {},
@@ -47,12 +68,21 @@ RSpec.describe JsonapiErrorsHandler do
       it 'renders 500 error' do
         expect(subject).to include(expected_result)
       end
+
+      context 'when responds to log_error method' do
+        let(:dummy) { DummyErrorLogger.new }
+        let(:subject) { dummy.handle_error(unmapped_error) }
+        it 'logs unmapped error' do
+          expect(dummy).to receive(:log_error).with(unmapped_error)
+          subject
+        end
+      end
     end
   end
 
   describe '.map_error' do
     let(:subject) { dummy.map_error(mapped_error) }
-    
+
     context 'error is not in defined error list' do
       let(:mapped_error) { 'Error' }
 
@@ -72,7 +102,7 @@ RSpec.describe JsonapiErrorsHandler do
 
   describe '.render_error' do
     let(:subject) { dummy.render_error(error) }
-    
+
     context 'renders the error' do
       let(:error) { JsonapiErrorsHandler::Errors::Forbidden.new }
       let(:expected_result) do
