@@ -6,7 +6,7 @@ module JsonapiErrorsHandler
       def initialize(errors: {})
         @errors = errors
         @status = 422
-        @title = "Invalid request"
+        @title = 'Invalid request'
       end
 
       def serializable_hash

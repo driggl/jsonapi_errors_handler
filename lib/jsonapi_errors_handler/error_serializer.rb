@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module JsonapiErrorsHandler
@@ -10,7 +12,7 @@ module JsonapiErrorsHandler
       serializable_hash
     end
 
-    def to_json(_payload=nil)
+    def to_json(_payload = nil)
       to_h.to_json
     end
 
@@ -25,4 +27,3 @@ module JsonapiErrorsHandler
     attr_reader :error
   end
 end
-
