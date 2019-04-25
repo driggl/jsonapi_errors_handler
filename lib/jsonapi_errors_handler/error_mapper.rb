@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JsonapiErrorsHandler
   class ErrorMapper
     @@mapped_errors = {}
@@ -5,13 +7,12 @@ module JsonapiErrorsHandler
       @@mapped_errors
     end
 
-    def self.map_errors!(errors_hash={})
+    def self.map_errors!(errors_hash = {})
       @@mapped_errors.merge!(errors_hash)
     end
 
     def self.mapped_error?(error_klass)
-      mapped_errors.values.include?(error_klass)
+      mapped_errors.value?(error_klass)
     end
   end
 end
-

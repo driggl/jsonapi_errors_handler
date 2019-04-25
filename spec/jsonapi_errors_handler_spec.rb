@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class TestJsonapiErrorsHandler
@@ -33,11 +35,17 @@ RSpec.describe JsonapiErrorsHandler do
 
     context 'when error is mapped' do
       let(:expected_result) do
-        { errors: [{detail: 'You have no rights to access this resource',
-                    source: {'pointer'=>'/request/headers/authorization'},
-                    status: 403,
-                    title: 'Forbidden request'}],
-                  status: 403 }
+        {
+          errors: [
+            {
+              detail: 'You have no rights to access this resource',
+              source: { 'pointer' => '/request/headers/authorization' },
+              status: 403,
+              title: 'Forbidden request'
+            }
+          ],
+          status: 403
+        }
       end
 
       it 'renders mapped error' do
@@ -58,11 +66,17 @@ RSpec.describe JsonapiErrorsHandler do
       let(:unmapped_error) { 'Error' }
       let(:subject) { dummy.handle_error(unmapped_error) }
       let(:expected_result) do
-        { errors: [{detail: 'We encountered unexpected error, but our developers had been already notified about it',
-                    source: {},
-                    status: 500,
-                    title: 'Something went wrong'}],
-                  status: 500 }
+        {
+          errors: [
+            {
+              detail: 'We encountered unexpected error, but our developers had been already notified about it',
+              source: {},
+              status: 500,
+              title: 'Something went wrong'
+            }
+          ],
+          status: 500
+        }
       end
 
       it 'renders 500 error' do
@@ -106,11 +120,17 @@ RSpec.describe JsonapiErrorsHandler do
     context 'renders the error' do
       let(:error) { JsonapiErrorsHandler::Errors::Forbidden.new }
       let(:expected_result) do
-        { errors: [{detail: 'You have no rights to access this resource',
-                    source: {'pointer'=>'/request/headers/authorization'},
-                    status: 403,
-                    title: 'Forbidden request'}],
-                  status: 403 }
+        {
+          errors: [
+            {
+              detail: 'You have no rights to access this resource',
+              source: { 'pointer' => '/request/headers/authorization' },
+              status: 403,
+              title: 'Forbidden request'
+            }
+          ],
+          status: 403
+        }
       end
 
       it 'returns error' do

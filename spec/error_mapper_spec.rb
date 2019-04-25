@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe JsonapiErrorsHandler::ErrorMapper do
@@ -14,7 +16,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
   end
 
   describe '.map_errors!' do
-    let(:errors_hash) { {'Error' => 'Invalid'} }
+    let(:errors_hash) { { 'Error' => 'Invalid' } }
 
     it 'merges errors_hash into the current errors' do
       result = described_class.map_errors!(errors_hash)
@@ -28,7 +30,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
     end
 
     it 'return true if the errors include a specific error' do
-      described_class.map_errors!({ 'Invalid' => 'Errors::Invalid'})
+      described_class.map_errors!('Invalid' => 'Errors::Invalid')
       expect(described_class.mapped_error?('Errors::Invalid')).to be true
     end
   end
