@@ -4,14 +4,14 @@
 
 # JsonapiErrorsHandler
 
-A convienient way to serialize errors in JsonAPI format (https://jsonapi.org)
+A convienient way to serialize errors in [Jsonapi standard](https://jsonapi.org)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'jsonapi_errors_handler'
+  gem 'jsonapi_errors_handler'
 ```
 
 And then execute:
@@ -26,16 +26,17 @@ Or install it yourself as:
 
 In your controller:
 
-```
-include JsonapiErrorsHandler
-rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
+```ruby
+  include JsonapiErrorsHandler
+  rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
 
 From this point you'll have default html errors being serialized. JsonapiErrorsHandler offers 4 predefined errors:
-- [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
-- [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
-- [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
-- [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+
+*   [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
+*   [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
+*   [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
 
 If you rise any of errors above in any place of your application, client gets the nicely formatted error message instead of 500
 
@@ -43,13 +44,13 @@ If you rise any of errors above in any place of your application, client gets th
 
 If you want your custom errors being handled by default, just add them to the mapper
 
-```
-include JsonapiErrorsHandler
-ErrorsMapper.map_errors!({
-    'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
-    'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
-})
-rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
+```ruby
+  include JsonapiErrorsHandler
+  ErrorsMapper.map_errors!({
+      'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
+      'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
+  })
+  rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
 
 ###Custom error logging
@@ -68,14 +69,14 @@ To do so, just implement the `log_error` method in your controller, that accepts
   end
 ```
 
-### Custom error responses.
+### Custom error responses
 
 By default, we deliver hardcoded responses. You can check out the defined error classes for details
 
-- [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
-- [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
-- [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
-- [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+*   [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
+*   [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
+*   [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
 
 If you want to have custom error responses being delivered, just create your own `Api::Errors` that inherits from `JsonapiErrorsHandler::StandardError`
 
@@ -100,8 +101,8 @@ If you want to localize your responses, just create a class:
 
 ## Guides & tutorials
 
-- [Handling Exceptions in Rails Applications](https://driggl.com/blog/a/handling-exceptions-in-rails-applications) - Gem's concept explained in details
-- [JsonApi Errors Handler Guide](https://driggl.com/blog/a/json-api-errors-handler)
+*   [Handling Exceptions in Rails Applications](https://driggl.com/blog/a/handling-exceptions-in-rails-applications) - Gem's concept explained in details
+*   [JsonApi Errors Handler Guide](https://driggl.com/blog/a/json-api-errors-handler)
 
 ## Development
 
@@ -111,17 +112,17 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/driggl/jsonapi_errors_handler.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/driggl/jsonapi_errors_handler](https://github.com/driggl/jsonapi_errors_handler).
 
 **How to contribute:**
 
-1. Fork repository
-2. Install [Rubocop](https://github.com/rubocop-hq/rubocop) - make sure you run it before commiting changes
-2. Commit changes
-    - Keep commits small and atomic
-    - Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
-    - Keep commits imperative style
-3. Create Pull Request
+1.  Fork repository
+2.  Install [Rubocop](https://github.com/rubocop-hq/rubocop) - make sure you run it before commiting changes
+3.  Commit changes
+  *   Keep commits small and atomic
+  *   Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
+  *   Keep commits imperative style
+4.  Create Pull Request
 
 ## License
 
