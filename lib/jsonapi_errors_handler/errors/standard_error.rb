@@ -13,7 +13,7 @@ module JsonapiErrorsHandler
         @source = KeysStringifier.call(source)
       end
 
-      def to_h
+      def serializable_hash
         {
           status: status,
           title: title,
@@ -22,12 +22,12 @@ module JsonapiErrorsHandler
         }
       end
 
-      def serializable_hash
-        to_h
+      def to_h
+        serializable_hash
       end
 
       def to_s
-        to_h.to_s
+        serializable_hash.to_s
       end
 
       attr_reader :title, :detail, :status, :source
