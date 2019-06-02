@@ -47,8 +47,8 @@ If you want your custom errors being handled by default, just add them to the ma
 ```ruby
   include JsonapiErrorsHandler
   ErrorsMapper.map_errors!({
-      'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
-      'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
+      'JsonapiErrorsHandler::Errors::NotFound' => 'ActiveRecord::RecordNotFound',
+      'JsonapiErrorsHandler::Errors::Invalid' => 'ActiveRecord::RecordInvalid'
   })
   rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
