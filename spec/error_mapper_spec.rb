@@ -31,7 +31,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
 
     it 'return true if the errors include a specific error' do
       described_class.map_errors!('Invalid' => 'Errors::Invalid')
-      expect(described_class.mapped_error?('Errors::Invalid')).to be true
+      expect(described_class.mapped_error?('Invalid')).to be true
     end
   end
 end

@@ -12,7 +12,7 @@ module JsonapiErrorsHandler
     end
 
     def self.mapped_error?(error_klass)
-      mapped_errors.value?(error_klass)
+      mapped_errors.key?(error_klass)
     end
   end
 end
