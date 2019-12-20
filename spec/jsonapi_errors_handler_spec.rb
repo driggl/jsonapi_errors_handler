@@ -105,11 +105,20 @@ RSpec.describe JsonapiErrorsHandler do
       end
     end
 
-    context 'error is in defined error list' do
-      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new }
+    context 'when error is an instance and is defined on the error list' do
+      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new(message: 'test') }
 
-      it 'initializes an instance of error class' do
-        expect(subject).to eq JsonapiErrorsHandler::Errors::Forbidden.new
+      it 'returns the original error if the instance had been risen' do
+        expect(subject).to eq mapped_error
+        expect(subject.detail).to eq('test')
+      end
+    end
+
+    context 'when error is a class and is defined on the error list' do
+      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden }
+
+      it 'returns an instance of the risen error klass' do
+        expect(subject).to eq mapped_error.new
       end
     end
   end

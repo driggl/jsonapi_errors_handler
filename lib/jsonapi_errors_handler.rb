@@ -26,10 +26,12 @@ module JsonapiErrorsHandler
   end
 
   def map_error(error)
-    error_klass = error.class.name
-    return nil unless ErrorMapper.mapped_error?(error_klass)
+    error_klass = error.is_a?(Class) ? error : error.class
 
-    Object.const_get(ErrorMapper.mapped_errors[error_klass]).new
+    return nil unless ErrorMapper.mapped_error?(error_klass.to_s)
+    return error if error.instance_of?(error_klass)
+
+    Object.const_get(ErrorMapper.mapped_errors[error_klass.to_s]).new
   end
 
   def render_error(error)
