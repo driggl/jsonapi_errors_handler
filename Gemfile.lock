@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jsonapi_errors_handler (0.1.4)
+    jsonapi_errors_handler (0.1.5)
 
 GEM
   remote: https://rubygems.org/
