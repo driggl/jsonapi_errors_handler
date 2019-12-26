@@ -40,6 +40,18 @@ From this point you'll have default html errors being serialized. JsonapiErrorsH
 
 If you rise any of errors above in any place of your application, client gets the nicely formatted error message instead of 500
 
+### Handling unexpected errors
+
+If you want to handle all the errors in your API application to deliver nicely formatted JSON response about 500 instead crashing the server, add this when your application loads:
+
+```ruby
+require 'jsonapi_errors_handler'
+
+JsonapiErrorsHandler.configure do |config|
+  config.handle_unexpected = true
+end
+```
+
 ### Custom errors mapping
 
 If you want your custom errors being handled by default, just add them to the mapper
@@ -47,13 +59,28 @@ If you want your custom errors being handled by default, just add them to the ma
 ```ruby
   include JsonapiErrorsHandler
   ErrorMapper.map_errors!({
-      'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
-      'ActiveRecord::RecordInvalid' => 'JsonapiErrorsHandler::Errors::Invalid',
+      'ActiveRecord::RecordNotFound' => 'JsonapiErrorsHandler::Errors::NotFound'
   })
   rescue_from ::StandardError, with: lambda { |e| handle_error(e) }
 ```
 
-###Custom error logging
+### Handling rails-specific validation errors
+
+To handle validation errors from ActiveRecord or ActiveModel, you need to write custom
+error handler:
+
+```ruby
+rescue_from ActiveRecord::RecordInvalid, with: lambda { |e| handle_validation_error(e) }
+rescue_from ActiveModel::ValidationError, with: lambda { |e| handle_validation_error(e) }
+
+def handle_validation_error(error)
+  error_model = error.try(:model) || error.try(:record)
+  mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: error_model.errors)
+  render_error(mapped)
+end
+```
+
+### Custom error logging
 
 When you'll include the `jsonapi_errors_handler` to your controller, all errors will be handled and delivered to the client in the nice, formatted
 way.
