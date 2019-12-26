@@ -5,6 +5,10 @@ require 'spec_helper'
 class TestJsonapiErrorsHandler
   include JsonapiErrorsHandler
 
+  def config
+    JsonapiErrorsHandler::Configuration.instance
+  end
+
   def render(json: {}, status:)
     json.to_h.merge(status: status)
   end
@@ -79,7 +83,15 @@ RSpec.describe JsonapiErrorsHandler do
         }
       end
 
+      it 'raises the original error by default' do
+        expect { subject }.to raise_error(unmapped_error)
+      end
+
       it 'renders 500 error' do
+        JsonapiErrorsHandler.configure do |config|
+          config.handle_unexpected = true
+        end
+
         expect(subject).to include(expected_result)
       end
 
@@ -90,35 +102,6 @@ RSpec.describe JsonapiErrorsHandler do
           expect(dummy).to receive(:log_error).with(unmapped_error)
           subject
         end
-      end
-    end
-  end
-
-  describe '.map_error' do
-    let(:subject) { dummy.map_error(mapped_error) }
-
-    context 'error is not in defined error list' do
-      let(:mapped_error) { 'Error' }
-
-      it 'returns error' do
-        expect(subject).to be_nil
-      end
-    end
-
-    context 'when error is an instance and is defined on the error list' do
-      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new(message: 'test') }
-
-      it 'returns the original error if the instance had been risen' do
-        expect(subject).to eq mapped_error
-        expect(subject.detail).to eq('test')
-      end
-    end
-
-    context 'when error is a class and is defined on the error list' do
-      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden }
-
-      it 'returns an instance of the risen error klass' do
-        expect(subject).to eq mapped_error.new
       end
     end
   end

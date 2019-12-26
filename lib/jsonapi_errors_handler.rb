@@ -39,7 +39,7 @@ module JsonapiErrorsHandler
     config.configure(&block)
   end
 
-  def self.config
+  def config
     Configuration.instance
   end
 end
