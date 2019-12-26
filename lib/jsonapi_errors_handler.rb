@@ -2,6 +2,7 @@
 
 require 'irb'
 require 'jsonapi_errors_handler/version'
+require 'jsonapi_errors_handler/configuration'
 require 'jsonapi_errors_handler/errors'
 require 'jsonapi_errors_handler/error_mapper'
 require 'jsonapi_errors_handler/error_serializer'
@@ -19,22 +20,26 @@ module JsonapiErrorsHandler
   end
 
   def handle_error(error)
-    mapped = map_error(error)
-    log_error(error) if respond_to?(:log_error) && !mapped
-    mapped ||= ::JsonapiErrorsHandler::Errors::StandardError.new
-    render_error(mapped)
+    mapped = ErrorMapper.mapped_error(error)
+    mapped ? render_error(mapped) : handle_unexpected_error(error)
   end
 
-  def map_error(error)
-    error_klass = error.is_a?(Class) ? error : error.class
-
-    return nil unless ErrorMapper.mapped_error?(error_klass.to_s)
-    return error if error.instance_of?(error_klass)
-
-    Object.const_get(ErrorMapper.mapped_errors[error_klass.to_s]).new
+  def handle_unexpected_error(error)
+    return raise error unless config.handle_unexpected?
+    log_error(error) if respond_to?(:log_error)
+    render_error(::JsonapiErrorsHandler::Errors::StandardError.new)
   end
 
   def render_error(error)
     render json: ::JsonapiErrorsHandler::ErrorSerializer.new(error), status: error.status
+  end
+
+  def self.configure(&block)
+    config = Configuration.instance
+    config.configure(&block)
+  end
+
+  def self.config
+    Configuration.instance
   end
 end

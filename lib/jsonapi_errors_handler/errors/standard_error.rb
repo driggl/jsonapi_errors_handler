@@ -5,7 +5,7 @@ require 'jsonapi_errors_handler/keys_stringifier'
 module JsonapiErrorsHandler
   module Errors
     class StandardError < ::StandardError
-      def initialize(title: nil, detail: nil, status: nil, source: {})
+      def initialize(title: nil, detail: nil, status: nil, message: nil, source: {})
         @title = title || 'Something went wrong'
         @detail = detail
         @detail ||= 'We encountered unexpected error, but our developers had been already notified about it'

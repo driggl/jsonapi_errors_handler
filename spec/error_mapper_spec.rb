@@ -24,6 +24,41 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
     end
   end
 
+  describe '.mapped_error' do
+    let(:subject) { described_class.mapped_error(mapped_error) }
+
+    context 'when error is an instance and is defined on the error list' do
+      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new(message: 'test') }
+
+      context 'error is not in defined error list' do
+        let(:mapped_error) { 'Error' }
+
+        it 'returns error' do
+          expect(subject).to be_nil
+        end
+      end
+
+      it 'returns the original error if the instance had been risen' do
+        JsonapiErrorsHandler::ErrorMapper.map_errors!(
+          "JsonapiErrorsHandler::Errors::Forbidden" => "JsonapiErrorsHandler::Errors::Forbidden"
+        )
+        expect(subject).to eq mapped_error
+        expect(subject.detail).to eq('test')
+      end
+    end
+
+    context 'when error is a class and is defined on the error list' do
+      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden }
+
+      it 'returns an instance of the risen error klass' do
+        JsonapiErrorsHandler::ErrorMapper.map_errors!(
+          "JsonapiErrorsHandler::Errors::Forbidden" => "JsonapiErrorsHandler::Errors::Forbidden"
+        )
+        expect(subject).to eq mapped_error.new
+      end
+    end
+  end
+
   describe '.mapped_errors?' do
     it 'return false if the errors does not include a specific error' do
       expect(described_class.mapped_error?('AnError')).to be false
