@@ -25,7 +25,7 @@ module JsonapiErrorsHandler
   end
 
   def handle_unexpected_error(error)
-    return raise error unless config.handle_unexpected?
+    return raise error unless configuration.handle_unexpected?
     log_error(error) if respond_to?(:log_error)
     render_error(::JsonapiErrorsHandler::Errors::StandardError.new)
   end
@@ -35,11 +35,10 @@ module JsonapiErrorsHandler
   end
 
   def self.configure(&block)
-    config = Configuration.instance
-    config.configure(&block)
+    Configuration.instance.configure(&block)
   end
 
-  def config
+  def configuration
     Configuration.instance
   end
 end
