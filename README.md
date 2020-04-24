@@ -103,7 +103,7 @@ By default, we deliver hardcoded responses. You can check out the defined error 
 *   [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
 *   [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
 *   [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
-*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/unauthorized.rb)
 
 If you want to have custom error responses being delivered, just create your own `Api::Errors` that inherits from `JsonapiErrorsHandler::StandardError`
 
