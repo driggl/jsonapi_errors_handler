@@ -36,7 +36,7 @@ From this point you'll have default html errors being serialized. JsonapiErrorsH
 *   [JsonapiErrorsHandler::Errors::Invalid](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/invalid.rb)
 *   [JsonapiErrorsHandler::Errors::Forbidden](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/forbidden.rb)
 *   [JsonapiErrorsHandler::Errors::NotFound](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
-*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/not_found.rb)
+*   [JsonapiErrorsHandler::Errors::Unauthorized](https://github.com/driggl/jsonapi_errors_handler/blob/master/lib/jsonapi_errors_handler/errors/unauthorized.rb)
 
 If you rise any of errors above in any place of your application, client gets the nicely formatted error message instead of 500
 
