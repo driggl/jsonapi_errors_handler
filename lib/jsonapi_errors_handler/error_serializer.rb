@@ -20,7 +20,7 @@ module JsonapiErrorsHandler
 
     def serializable_hash
       {
-        errors: [error.serializable_hash]
+        errors: [error.serializable_hash].flatten
       }
     end
 
