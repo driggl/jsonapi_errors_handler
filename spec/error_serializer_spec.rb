@@ -18,6 +18,32 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
         }
       ]
     end
+
+    context 'when invalid error with a hash is given' do
+      let(:error) do
+        JsonapiErrorsHandler::Errors::Invalid.new(
+          errors: {name: "can't be blank", password: "can't be blank"}
+        )
+      end
+
+      it 'works when called with array' do
+        result = subject.to_h
+        expect(result[:errors]).to eq [
+          {
+            status: 422,
+            title: 'Invalid request',
+            detail: "can't be blank",
+            source: { pointer: '/data/attributes/name' }
+          },
+          {
+            status: 422,
+            title: 'Invalid request',
+            detail: "can't be blank",
+            source: { pointer: '/data/attributes/password' }
+          }
+        ]
+      end
+    end
   end
 
   describe '#to_json' do
