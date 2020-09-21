@@ -1,0 +1,29 @@
+name: Run tests
+
+on:
+  push:
+    branches-ignore: [ release ]
+  pull_request:
+    branches: [ master release ]
+
+jobs:
+  build:
+    name: Build + Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7.1
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.1
+    - name: Run tests
+      run: |
+        bundle install
+        CI=true bundle exec rspec
+    - name: Upload report
+      run: |
+        mv ./coverage/coverage.xml cobertura.xml
+        bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+      env:
+        CODACY_PROJECT_TOKEN: ${{secrets.CODACY_PROJECT_TOKEN}}
