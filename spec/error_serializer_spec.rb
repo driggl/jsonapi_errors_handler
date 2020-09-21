@@ -9,11 +9,14 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
   describe '#to_h' do
     it 'returns error in hash format' do
       result = subject.to_h
+      message = <<~STRING.chomp
+        We've encountered unexpected error, but our developers had been already notified about it
+      STRING
       expect(result[:errors]).to eq [
         {
           status: 500,
           title: 'Something went wrong',
-          detail: 'We encountered unexpected error, but our developers had been already notified about it',
+          detail: message,
           source: {}
         }
       ]
@@ -22,7 +25,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
     context 'when invalid error with a hash is given' do
       let(:error) do
         JsonapiErrorsHandler::Errors::Invalid.new(
-          errors: {name: "can't be blank", password: "can't be blank"}
+          errors: { name: "can't be blank", password: "can't be blank" }
         )
       end
 
@@ -48,8 +51,18 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
 
   describe '#to_json' do
     it 'converts hash into json' do
+      message = "We've encountered unexpected error, but our developers had been already notified about it"
       expect(subject.to_json).to eq(
-        '{"errors":[{"status":500,"title":"Something went wrong","detail":"We encountered unexpected error, but our developers had been already notified about it","source":{}}]}'
+        {
+          'errors': [
+            {
+              'status': 500,
+              'title': 'Something went wrong',
+              'detail': message,
+              'source': {}
+            }
+          ]
+        }.to_json
       )
     end
   end

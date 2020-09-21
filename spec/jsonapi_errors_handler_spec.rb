@@ -21,8 +21,7 @@ class DummyErrorLogger
     json.to_h.merge(status: status)
   end
 
-  def log_error(e)
-  end
+  def log_error(_error); end
 end
 
 RSpec.describe JsonapiErrorsHandler do
@@ -73,7 +72,7 @@ RSpec.describe JsonapiErrorsHandler do
         {
           errors: [
             {
-              detail: 'We encountered unexpected error, but our developers had been already notified about it',
+              detail: "We've encountered unexpected error, but our developers had been already notified about it",
               source: {},
               status: 500,
               title: 'Something went wrong'

@@ -25,6 +25,7 @@ module JsonapiErrorsHandler
 
   def handle_unexpected_error(error)
     return raise error unless configuration.handle_unexpected?
+
     log_error(error) if respond_to?(:log_error)
     render_error(::JsonapiErrorsHandler::Errors::StandardError.new)
   end

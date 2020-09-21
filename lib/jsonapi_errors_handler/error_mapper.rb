@@ -22,11 +22,13 @@ module JsonapiErrorsHandler
       root_class = error_class.split('::').first
       mapped = mapped_errors[error_class] || mapped_errors[root_class]
       return unless mapped
+
       Object.const_get(mapped).new
     end
 
     def self.descendant_of_predefined?(error)
       return false if error.is_a?(Class)
+
       error.class < JsonapiErrorsHandler::Errors::StandardError
     end
   end
