@@ -44,7 +44,8 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
 
       it 'returns the original error if the instance had been risen' do
         JsonapiErrorsHandler::ErrorMapper.map_errors!(
-          'JsonapiErrorsHandler::Errors::Forbidden' => 'JsonapiErrorsHandler::Errors::Forbidden'
+          'JsonapiErrorsHandler::Errors::Forbidden' =>
+            'JsonapiErrorsHandler::Errors::Forbidden'
         )
         expect(subject).to eq mapped_error
         expect(subject.detail).to eq('test')
@@ -56,7 +57,8 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
 
       it 'returns an instance of the risen error klass' do
         JsonapiErrorsHandler::ErrorMapper.map_errors!(
-          'JsonapiErrorsHandler::Errors::Forbidden' => 'JsonapiErrorsHandler::Errors::Forbidden'
+          'JsonapiErrorsHandler::Errors::Forbidden' =>
+            'JsonapiErrorsHandler::Errors::Forbidden'
         )
         expect(subject).to eq mapped_error.new
       end

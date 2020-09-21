@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module JsonapiErrorsHandler
+  # Maps any of the given error classes into the serializable errors
+  # from the predefined collection
+  #
   class ErrorMapper
     @mapped_errors = {}
 

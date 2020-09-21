@@ -3,6 +3,8 @@
 require 'json'
 
 module JsonapiErrorsHandler
+  # Serializes the given error to match the JSON:API specification
+  #
   class ErrorSerializer
     def initialize(error)
       @error = error

@@ -6,6 +6,8 @@ require 'jsonapi_errors_handler/errors'
 require 'jsonapi_errors_handler/error_mapper'
 require 'jsonapi_errors_handler/error_serializer'
 
+# Allows to handle ruby errors and return the serialized JSON:API output
+#
 module JsonapiErrorsHandler
   PREDEFINED_HASH = {
     'JsonapiErrorsHandler::Errors::Invalid' =>
