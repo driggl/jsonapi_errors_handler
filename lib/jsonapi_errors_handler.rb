@@ -7,14 +7,20 @@ require 'jsonapi_errors_handler/error_mapper'
 require 'jsonapi_errors_handler/error_serializer'
 
 module JsonapiErrorsHandler
+  PREDEFINED_HASH = {
+    'JsonapiErrorsHandler::Errors::Invalid' =>
+      'JsonapiErrorsHandler::Errors::Invalid',
+    'JsonapiErrorsHandler::Errors::Forbidden' =>
+      'JsonapiErrorsHandler::Errors::Forbidden',
+    'JsonapiErrorsHandler::Errors::NotFound' => '
+      JsonapiErrorsHandler::Errors::NotFound',
+    'JsonapiErrorsHandler::Errors::Unauthorized' =>
+      'JsonapiErrorsHandler::Errors::Unauthorized'
+  }.freeze
+
   def self.included(base)
     base.class_eval do
-      ErrorMapper.map_errors!(
-        'JsonapiErrorsHandler::Errors::Invalid' => 'JsonapiErrorsHandler::Errors::Invalid',
-        'JsonapiErrorsHandler::Errors::Forbidden' => 'JsonapiErrorsHandler::Errors::Forbidden',
-        'JsonapiErrorsHandler::Errors::NotFound' => 'JsonapiErrorsHandler::Errors::NotFound',
-        'JsonapiErrorsHandler::Errors::Unauthorized' => 'JsonapiErrorsHandler::Errors::Unauthorized'
-      )
+      ErrorMapper.map_errors!(PREDEFINED_HASH)
     end
   end
 
