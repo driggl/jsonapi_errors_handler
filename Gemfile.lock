@@ -26,10 +26,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler
   jsonapi_errors_handler!
-  rake (~> 13.0)
-  rspec (~> 3.0)
+  rake
+  rspec
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
