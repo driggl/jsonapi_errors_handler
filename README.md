@@ -17,11 +17,15 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+```shell
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install jsonapi_errors_handler
+```shell
+$ gem install jsonapi_errors_handler
+```
 
 ## Usage
 
@@ -140,16 +144,16 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/driggl/jsonapi_errors_handler](https://github.com/driggl/jsonapi_errors_handler).
+Bug reports and pull requests are welcome on GitHub at <https://github.com/driggl/jsonapi_errors_handler>.
 
 **How to contribute:**
 
 1.  Fork repository
 2.  Install [Rubocop](https://github.com/rubocop-hq/rubocop) - make sure you run it before commiting changes
 3.  Commit changes
-  *   Keep commits small and atomic
-  *   Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
-  *   Keep commits imperative style
+    *   Keep commits small and atomic
+    *   Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
+    *   Keep commits imperative style
 4.  Create Pull Request
 
 ## License
