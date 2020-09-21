@@ -154,6 +154,7 @@ Bug reports and pull requests are welcome on GitHub at <https://github.com/drigg
     *   Keep commits small and atomic
     *   Start commit message from keywords (Add/Remove/Change/Refactor/Move/Rename/Upgrade/Downgrade)
     *   Keep commits imperative style
+
 4.  Create Pull Request
 
 ## License
