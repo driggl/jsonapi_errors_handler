@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/jsonapi_errors_handler.svg)](https://badge.fury.io/rb/jsonapi_errors_handler)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6dba6e4556354789809185e0decde4f8)](https://www.codacy.com/gh/driggl/jsonapi_errors_handler?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=driggl/jsonapi_errors_handler&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/6dba6e4556354789809185e0decde4f8)](https://www.codacy.com/gh/driggl/jsonapi_errors_handler?utm_source=github.com&utm_medium=referral&utm_content=driggl/jsonapi_errors_handler&utm_campaign=Badge_Coverage)
-
+![Run tests](https://github.com/driggl/jsonapi_errors_handler/workflows/Run%20tests/badge.svg?branch=master)
 
 # JsonapiErrorsHandler
 
