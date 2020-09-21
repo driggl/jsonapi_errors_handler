@@ -11,7 +11,9 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
     end
 
     it 'returns current value of class variable @mapped_errors' do
-      expect(mapped_errors).to eq described_class.instance_variable_get(:@mapped_errors)
+      expect(mapped_errors).to(
+        eq described_class.instance_variable_get(:@mapped_errors)
+      )
     end
   end
 
@@ -28,7 +30,9 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
     let(:subject) { described_class.mapped_error(mapped_error) }
 
     context 'when error is an instance and is defined on the error list' do
-      let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new(message: 'test') }
+      let(:mapped_error) do
+        JsonapiErrorsHandler::Errors::Forbidden.new(message: 'test')
+      end
 
       context 'error is not in defined error list' do
         let(:mapped_error) { 'Error' }
