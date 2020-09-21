@@ -2,6 +2,7 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require 'jsonapi_errors_handler/version'
 
 Gem::Specification.new do |spec|
@@ -43,4 +44,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'simplecov-cobertura'
 end

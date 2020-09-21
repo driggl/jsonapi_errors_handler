@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+require 'simplecov'
+
+if ENV['CI']
+  require 'simplecov-cobertura'
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
+
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
 require 'jsonapi_errors_handler'
 
 RSpec.configure do |config|
