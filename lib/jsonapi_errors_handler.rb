@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'irb'
 require 'jsonapi_errors_handler/version'
 require 'jsonapi_errors_handler/configuration'
 require 'jsonapi_errors_handler/errors'
