@@ -2,6 +2,8 @@
 
 module JsonapiErrorsHandler
   module Errors
+    # Handles serialization of forbidden HTTP error (403 status code)
+    #
     class Forbidden < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(message: nil)
         super(

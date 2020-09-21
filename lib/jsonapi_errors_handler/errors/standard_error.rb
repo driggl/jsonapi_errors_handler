@@ -4,8 +4,13 @@ require 'jsonapi_errors_handler/keys_stringifier'
 
 module JsonapiErrorsHandler
   module Errors
+    # Handles serialization of Unexpected HTTP error (500 status code)
+    # It's also a fallback for not mapped errors in the application.
+    #
     class StandardError < ::StandardError
-      def initialize(title: nil, status: nil, detail: nil, message: nil, source: {})
+      def initialize(
+        title: nil, status: nil, detail: nil, message: nil, source: {}
+      )
         @title = title || 'Something went wrong'
         @detail = detail || message
         @detail ||= "We've encountered unexpected error, but our developers had been already notified about it" # rubocop:disable Metrics/LineLength

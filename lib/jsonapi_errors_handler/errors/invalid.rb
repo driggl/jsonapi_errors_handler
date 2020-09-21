@@ -2,6 +2,8 @@
 
 module JsonapiErrorsHandler
   module Errors
+    # Handles serialization of invalid HTTP error (422 status code)
+    #
     class Invalid < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(errors: {})
         @errors = errors

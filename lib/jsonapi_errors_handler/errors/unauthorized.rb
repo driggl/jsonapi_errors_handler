@@ -2,6 +2,8 @@
 
 module JsonapiErrorsHandler
   module Errors
+    # Handles serialization of Unauthorized HTTP error (401 status code)
+    #
     class Unauthorized < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(message: nil)
         super(

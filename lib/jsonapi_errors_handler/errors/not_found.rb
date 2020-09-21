@@ -2,6 +2,8 @@
 
 module JsonapiErrorsHandler
   module Errors
+    # Handles serialization of NotFound HTTP error (404 status code)
+    #
     class NotFound < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(message: nil)
         super(
