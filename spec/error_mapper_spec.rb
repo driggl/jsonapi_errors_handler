@@ -11,7 +11,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorMapper do
     end
 
     it 'returns current value of class variable @mapped_errors' do
-      expect(mapped_errors).to eq described_class.class_variable_get(:@@mapped_errors)
+      expect(mapped_errors).to eq described_class.instance_variable_get(:@mapped_errors)
     end
   end
 
