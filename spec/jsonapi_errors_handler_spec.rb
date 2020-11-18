@@ -59,7 +59,7 @@ RSpec.describe JsonapiErrorsHandler do
         let(:dummy) { DummyErrorLogger.new }
         let(:subject) { dummy.handle_error(mapped_error) }
         it 'does not call error that is mapped' do
-          expect(dummy).not_to receive(:log_error)
+          expect(dummy).to receive(:log_error)
           subject
         end
       end
@@ -97,9 +97,28 @@ RSpec.describe JsonapiErrorsHandler do
       context 'when responds to log_error method' do
         let(:dummy) { DummyErrorLogger.new }
         let(:subject) { dummy.handle_error(unmapped_error) }
+
         it 'logs unmapped error' do
+          JsonapiErrorsHandler.configure do |config|
+            config.handle_unexpected = true
+          end
+
           expect(dummy).to receive(:log_error).with(unmapped_error)
-          subject
+          expect(subject)
+        end
+      end
+
+      context 'when unexpected error is not handled' do
+        let(:dummy) { DummyErrorLogger.new }
+        let(:subject) { dummy.handle_error(unmapped_error) }
+
+        it 'logs unmapped error' do
+          JsonapiErrorsHandler.configure do |config|
+            config.handle_unexpected = false
+          end
+
+          expect(dummy).to receive(:log_error).with(unmapped_error)
+          expect { subject }.to raise_error(unmapped_error)
         end
       end
     end
