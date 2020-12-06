@@ -43,7 +43,7 @@ RSpec.describe JsonapiErrorsHandler do
             {
               detail: 'You have no rights to access this resource',
               source: { 'pointer' => '/request/headers/authorization' },
-              status: 403,
+              status: '403',
               title: 'Forbidden request'
             }
           ],
@@ -74,7 +74,7 @@ RSpec.describe JsonapiErrorsHandler do
             {
               detail: "We've encountered unexpected error, but our developers had been already notified about it",
               source: {},
-              status: 500,
+              status: '500',
               title: 'Something went wrong'
             }
           ],
@@ -116,7 +116,7 @@ RSpec.describe JsonapiErrorsHandler do
             {
               detail: 'You have no rights to access this resource',
               source: { 'pointer' => '/request/headers/authorization' },
-              status: 403,
+              status: '403',
               title: 'Forbidden request'
             }
           ],

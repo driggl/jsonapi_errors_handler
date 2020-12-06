@@ -8,7 +8,7 @@ module JsonapiErrorsHandler
       def initialize(message: nil)
         super(
           title: 'Forbidden request',
-          status: 403,
+          status: '403',
           detail: message || 'You have no rights to access this resource',
           source: { pointer: '/request/headers/authorization' }
         )

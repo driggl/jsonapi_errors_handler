@@ -8,7 +8,7 @@ module JsonapiErrorsHandler
       def initialize(message: nil)
         super(
           title: 'Unauthorized',
-          status: 401,
+          status: '401',
           detail: message || 'You need to login to authorize this request.',
           source: { pointer: '/request/headers/authorization' }
         )

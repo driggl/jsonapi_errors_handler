@@ -39,7 +39,7 @@ module JsonapiErrorsHandler
   end
 
   def render_error(error)
-    render json: ::JsonapiErrorsHandler::ErrorSerializer.new(error), status: error.status
+    render json: ::JsonapiErrorsHandler::ErrorSerializer.new(error), status: error.status.to_i
   end
 
   def self.configure(&block)

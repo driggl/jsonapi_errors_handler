@@ -7,7 +7,7 @@ module JsonapiErrorsHandler
     class Invalid < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(errors: {})
         @errors = errors
-        @status = 422
+        @status = '422'
         @title = 'Invalid request'
       end
 
