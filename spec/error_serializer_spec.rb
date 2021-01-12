@@ -14,7 +14,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
       STRING
       expect(result[:errors]).to eq [
         {
-          status: 500,
+          status: '500',
           title: 'Something went wrong',
           detail: message,
           source: {}
@@ -33,13 +33,13 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
         result = subject.to_h
         expect(result[:errors]).to eq [
           {
-            status: 422,
+            status: '422',
             title: 'Invalid request',
             detail: "can't be blank",
             source: { pointer: '/data/attributes/name' }
           },
           {
-            status: 422,
+            status: '422',
             title: 'Invalid request',
             detail: "can't be blank",
             source: { pointer: '/data/attributes/password' }
@@ -56,7 +56,7 @@ RSpec.describe JsonapiErrorsHandler::ErrorSerializer do
         {
           'errors': [
             {
-              'status': 500,
+              'status': '500',
               'title': 'Something went wrong',
               'detail': message,
               'source': {}
