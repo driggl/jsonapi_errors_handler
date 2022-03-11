@@ -9,9 +9,9 @@ module JsonapiErrorsHandler
     include Singleton
 
     attr_writer :handle_unexpected
-
+    attr_accessor :content_type
     # Allows to override the configuration options
-    # @param [Block] - list of options to be overwriten
+    # @param [Block] - list of options to be overwritten
     #
     def configure
       yield(self) if block_given?
@@ -28,6 +28,7 @@ module JsonapiErrorsHandler
 
     def initialize
       @handle_unexpected = false
+      @content_type = 'application/vnd.api+json'
     end
   end
 end
