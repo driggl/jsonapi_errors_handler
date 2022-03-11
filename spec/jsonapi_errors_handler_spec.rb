@@ -9,16 +9,16 @@ class TestJsonapiErrorsHandler
     JsonapiErrorsHandler::Configuration.instance
   end
 
-  def render(json: {}, status:)
-    json.to_h.merge(status: status)
+  def render(json: {}, status:, content_type:)
+    json.to_h.merge(status: status, content_type: content_type)
   end
 end
 
 class DummyErrorLogger
   include JsonapiErrorsHandler
 
-  def render(json: {}, status:)
-    json.to_h.merge(status: status)
+  def render(json: {}, status:, content_type:)
+    json.to_h.merge(status: status, content_type: content_type)
   end
 
   def log_error(_error); end
@@ -35,6 +35,7 @@ RSpec.describe JsonapiErrorsHandler do
   describe '.handle_error' do
     let(:mapped_error) { JsonapiErrorsHandler::Errors::Forbidden.new }
     let(:subject) { dummy.handle_error(mapped_error) }
+    let(:content_type) { 'application/vnd.api+json' }
 
     context 'when error is mapped' do
       let(:expected_result) do
@@ -47,12 +48,13 @@ RSpec.describe JsonapiErrorsHandler do
               title: 'Forbidden request'
             }
           ],
-          status: 403
+          status: 403,
+          content_type: content_type
         }
       end
 
       it 'renders mapped error' do
-        expect(subject).to include(expected_result)
+        expect(subject).to match(expected_result)
       end
 
       context 'when responds to log_error method' do
@@ -78,7 +80,8 @@ RSpec.describe JsonapiErrorsHandler do
               title: 'Something went wrong'
             }
           ],
-          status: 500
+          status: 500,
+          content_type: content_type
         }
       end
 
@@ -91,7 +94,7 @@ RSpec.describe JsonapiErrorsHandler do
           config.handle_unexpected = true
         end
 
-        expect(subject).to include(expected_result)
+        expect(subject).to match(expected_result)
       end
 
       context 'when responds to log_error method' do
@@ -126,25 +129,41 @@ RSpec.describe JsonapiErrorsHandler do
 
   describe '.render_error' do
     let(:subject) { dummy.render_error(error) }
+    let(:content_type) { 'application/vnd.api+json' }
+
+    let(:error) { JsonapiErrorsHandler::Errors::Forbidden.new }
+    let(:expected_result) do
+      {
+        errors: [
+          {
+            detail: 'You have no rights to access this resource',
+            source: { 'pointer' => '/request/headers/authorization' },
+            status: 403,
+            title: 'Forbidden request'
+          }
+        ],
+        status: 403,
+        content_type: content_type
+      }
+    end
 
     context 'renders the error' do
-      let(:error) { JsonapiErrorsHandler::Errors::Forbidden.new }
-      let(:expected_result) do
-        {
-          errors: [
-            {
-              detail: 'You have no rights to access this resource',
-              source: { 'pointer' => '/request/headers/authorization' },
-              status: 403,
-              title: 'Forbidden request'
-            }
-          ],
-          status: 403
-        }
+      it 'returns error' do
+        expect(subject).to match(expected_result)
+      end
+    end
+
+    context 'when custom content type' do
+      let(:content_type) { 'application/json' }
+
+      before do
+        JsonapiErrorsHandler.configure do |config|
+          config.content_type = content_type
+        end
       end
 
-      it 'returns error' do
-        expect(subject).to include(expected_result)
+      it 'returns error with custom content type' do
+        expect(subject).to match(expected_result)
       end
     end
   end

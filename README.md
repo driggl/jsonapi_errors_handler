@@ -57,6 +57,19 @@ JsonapiErrorsHandler.configure do |config|
 end
 ```
 
+
+### Response Content-Type
+
+If you want to change the response content type you can do it through the configuration setting `content_type` by default it is `application/vnd.api+json`
+
+```ruby
+require 'jsonapi_errors_handler'
+
+JsonapiErrorsHandler.configure do |config|
+  config.content_type = 'application/json'
+end
+```
+
 ### Custom errors mapping
 
 If you want your custom errors being handled by default, just add them to the mapper
