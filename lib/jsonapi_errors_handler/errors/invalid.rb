@@ -16,8 +16,8 @@ module JsonapiErrorsHandler
           r << {
             status: status,
             title: title,
-            detail: msg,
-            source: { pointer: "/data/attributes/#{att}" }
+            detail: att.message,
+            source: { pointer: "/data/attributes/#{att.attribute}" }
           }
         end
       end
