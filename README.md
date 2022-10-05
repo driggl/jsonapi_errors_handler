@@ -57,6 +57,19 @@ JsonapiErrorsHandler.configure do |config|
 end
 ```
 
+
+### Response Content-Type
+
+If you want to change the response content type you can do it through the configuration setting `content_type` by default it is `application/vnd.api+json`
+
+```ruby
+require 'jsonapi_errors_handler'
+
+JsonapiErrorsHandler.configure do |config|
+  config.content_type = 'application/json'
+end
+```
+
 ### Custom errors mapping
 
 If you want your custom errors being handled by default, just add them to the mapper
@@ -80,7 +93,8 @@ rescue_from ActiveModel::ValidationError, with: lambda { |e| handle_validation_e
 
 def handle_validation_error(error)
   error_model = error.try(:model) || error.try(:record)
-  mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: error_model.errors)
+  messages = error_model.errors.messages
+  mapped = JsonapiErrorsHandler::Errors::Invalid.new(errors: messages)
   render_error(mapped)
 end
 ```
@@ -95,7 +109,7 @@ something unexpected happened.
 
 To do so, just implement the `log_error` method in your controller, that accepts the risen error as an argument.
 
-```
+```ruby
   def log_error(error)
     #do the fancy logging here
   end
@@ -116,7 +130,7 @@ If you want to have custom error responses being delivered, just create your own
 
 If you want to localize your responses, just create a class:
 
-```
+```ruby
   module Api::Errors
     class Forbidden < ::JsonapiErrorsHandler::Errors::StandardError
       def initialize(*)

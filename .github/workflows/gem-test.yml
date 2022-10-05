@@ -9,18 +9,33 @@ on:
 jobs:
   build:
     name: Build + Test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
+        ruby:
+          - 2.7
+          - '3.0'
+          - 3.1
+          - head
+          - truffleruby
+          - truffleruby-head
+          # - jruby
+          # - jruby-head
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7.1
+    - uses: actions/checkout@v3
+    - name: Setup Ruby versions
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.7.1
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
-      run: |
-        bundle install
-        CI=true bundle exec rspec
+      run: CI=true bundle exec rspec
     - name: Upload report
       run: |
         mv ./coverage/coverage.xml cobertura.xml

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module JsonapiErrorsHandler
-  VERSION = '0.3.0'
+  VERSION = '0.5.0'
 end
