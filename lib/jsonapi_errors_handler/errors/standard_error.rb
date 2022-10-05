@@ -20,7 +20,7 @@ module JsonapiErrorsHandler
 
       def serializable_hash
         {
-          status: status,
+          status: status.to_s,
           title: title,
           detail: detail,
           source: source
