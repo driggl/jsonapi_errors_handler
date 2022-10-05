@@ -10,7 +10,6 @@ jobs:
   build:
     name: Build + Test
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
@@ -24,9 +23,14 @@ jobs:
           # - jruby
           # - jruby-head
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: ruby/setup-ruby@v1
+    - uses: actions/checkout@v3
+    - name: Setup Ruby versions
+      uses: actions/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
